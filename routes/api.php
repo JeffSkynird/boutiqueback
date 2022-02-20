@@ -47,6 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::put('products/{id}', 'App\Http\Controllers\v1\Gestion\ProductController@update');
     Route::delete('products/{id}', 'App\Http\Controllers\v1\Gestion\ProductController@delete');
     Route::get('orders', 'App\Http\Controllers\v1\Gestion\OrderController@index');
+    Route::get('products/{id}', 'App\Http\Controllers\v1\Gestion\ProductController@show');
 
 
     

@@ -9,13 +9,15 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(ChecService $checService)
     {
         try {
             $data = Product::all();
+            $data2 = $checService->getProducts();
             return json_encode([
                 "status" => "200",
                 'data' => $data,
+                'data_chec'=>$data2,
                 "message" => 'Data obtenida con éxito',
                 "type" => 'success'
             ]);
@@ -90,9 +92,10 @@ class ProductController extends Controller
             ]);
         }
     }
-    public function show($id)
+    public function show( ChecService $checService, $id)
     {
-        $data = Product::find($id);
+        $data = $checService->getProductById($id);
+
         return json_encode([
             "status" => "200",
             "message" => 'Datos obtenidos con éxito',

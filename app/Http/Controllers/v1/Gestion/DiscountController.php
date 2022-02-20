@@ -35,8 +35,8 @@ class DiscountController extends Controller
                 "code" => $request->input('code'),
                 'type'=>'fixed',
                 'value'=>$request->input('value'),
-                'limit_quantity'=>true,
-                'quantity'=>$request->input('quantity'),
+                'limit_quantity'=>false,
+                //'quantity'=>$request->input('quantity'),
                 'expires'=>false
             ]);
             $request['chec_id'] = $res->id;

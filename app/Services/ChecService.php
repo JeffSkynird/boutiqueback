@@ -145,6 +145,38 @@ class ChecService{
         $result=json_decode($result);
         return $result;
     }
+    function getProducts(){
+        //GET ALL PRODUCTS
+        $url=$this->url."products";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = array();
+        $headers[] = "Content-Type: application/json";
+        $headers[] = "X-Public-Key: ".$this->publicKey;
+        $headers[] = "X-Secret-Key: ".$this->secretKey;
+        $headers[] = "X-Authorization: ".$this->secretKey;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        $result=json_decode($result);
+        return $result;
+    }
+    function getProductById($id){
+        //GET PRODUCT BY ID
+        $url=$this->url."products/".$id;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = array();
+        $headers[] = "Content-Type: application/json";
+        $headers[] = "X-Public-Key: ".$this->publicKey;
+        $headers[] = "X-Secret-Key: ".$this->secretKey;
+        $headers[] = "X-Authorization: ".$this->secretKey;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        $result=json_decode($result);
+        return $result;
+    }
     function editProduct($id,$data){
         //EDIT PRODUCT
         $url=$this->url."products/".$id;
