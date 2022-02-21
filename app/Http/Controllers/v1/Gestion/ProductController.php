@@ -109,7 +109,48 @@ class ProductController extends Controller
             $co = Product::find($id);
             $co->update($request->all());
             //CHEC SERVICE
-            $checService->editDiscount($co->chec_id, $request->all());
+               //SAVE IMAGE
+               $res0 = null;
+               if (!is_null($request->input('image'))) {
+                   $res0 = $checService->saveAsset([
+                       "filename" => $request->input('sku'),
+                       "private" => false,
+                       "url" => $request->input('image'),
+                   ]);
+               }
+               //CREATE IN CHEC IO
+               $data = [
+                   "product" => [
+                       "name" => $request->input('name'),
+                       'sku' => $request->input('sku'),
+                       'price' => floatval($request->input('price')),
+                       'description' => $request->input('description'),
+                       'pay_what_you_want' => false,
+                       'tax_exempt' => false,
+                       "active" => true,
+                       "sort_order" => 25,
+                       "inventory" => [
+                           "managed" => true,
+                           "available" => $request->input('quantity'),
+                       ],
+                   ],
+                   "categories" =>$request->input('categories')
+                  
+   
+   
+               ];
+   
+               if (!is_null($request->input('image'))) {
+                   if ($res0 != null) {
+                       $data['assets'] = [
+                           [
+                               "id" => $res0 != null ? $res0->id : null,
+                               "sort_order" => 25
+                           ]
+                       ];
+                   }
+               }
+               $res = $checService->editProduct($co->chec_id,$data);
             return json_encode([
                 "status" => "200",
                 "message" => 'Modificación exitosa',
