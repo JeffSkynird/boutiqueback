@@ -133,9 +133,8 @@ class ProductController extends Controller
                            "managed" => true,
                            "available" => $request->input('quantity'),
                        ],
-                   ],
-                   "categories" =>$request->input('categories')
-                  
+                   ]
+              
    
    
                ];
